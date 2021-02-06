@@ -4,7 +4,6 @@ const apiServise = {
   filmsAmount: 0,
   path: 'https://api.themoviedb.org/3',
   key: 'ffddee44025dd24685ea61d637d56d24',
-  trendsUrl: '',
 
   setQuery(value) {
     this.query = value;
@@ -28,6 +27,18 @@ const apiServise = {
 
   setFilmsAmount(value) {
     this.filmsAmount = value;
+  },
+
+  fetchTrends() {
+    return fetch(
+      `${this.path}/trending/movie/day?api_key=${this.key}&page=${this.page}`,
+    ).then(response => response.json());
+  },
+
+  fetchMoviesByKeyword() {
+    return fetch(
+      `${this.path}/search/movie?api_key=${this.key}&language=en-US&page=${this.page}&include_adult=false&query=${this.query}`,
+    ).then(response => response.json());
   },
 };
 

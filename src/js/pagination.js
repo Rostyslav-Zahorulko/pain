@@ -1,6 +1,5 @@
 import Pagination from 'tui-pagination';
 import { renderTrendsGallery } from './homePageRendering';
-// import { renderFilmsByKeywordGallery } from './movieSearch';
 import { showSpinner, hideSpinner } from './spinner';
 import apiServise from './api-servise';
 import { renderFilmsByKeywordGallery } from './movieSearch';
@@ -82,10 +81,7 @@ function handleOnPaginationContainerClick(event) {
   switch (button.className) {
     case 'tui-page-btn':
       apiServise.setPage(Number(button.textContent));
-      console.log('page: ', apiServise.page);
-
-      // renderTrendsGallery().catch(console.log).finally(hideSpinner);
-
+      // console.log('page: ', apiServise.page);
       refs.filmsGallery.hasAttribute('data-feature')
         ? renderTrendsGallery().catch(console.log).finally(hideSpinner)
         : renderFilmsByKeywordGallery().catch(console.log).finally(hideSpinner);
@@ -93,8 +89,7 @@ function handleOnPaginationContainerClick(event) {
 
     case 'tui-page-btn tui-prev':
       apiServise.decrementPage();
-      console.log('page: ', apiServise.page);
-
+      // console.log('page: ', apiServise.page);
       refs.filmsGallery.hasAttribute('data-feature')
         ? renderTrendsGallery().catch(console.log).finally(hideSpinner)
         : renderFilmsByKeywordGallery().catch(console.log).finally(hideSpinner);
@@ -102,8 +97,7 @@ function handleOnPaginationContainerClick(event) {
 
     case 'tui-page-btn tui-next':
       apiServise.incrementPage();
-      console.log('page: ', apiServise.page);
-
+      // console.log('page: ', apiServise.page);
       refs.filmsGallery.hasAttribute('data-feature')
         ? renderTrendsGallery().catch(console.log).finally(hideSpinner)
         : renderFilmsByKeywordGallery().catch(console.log).finally(hideSpinner);
@@ -111,8 +105,7 @@ function handleOnPaginationContainerClick(event) {
 
     case 'tui-page-btn tui-first':
       apiServise.resetPage();
-      console.log('page: ', apiServise.page);
-
+      // console.log('page: ', apiServise.page);
       refs.filmsGallery.hasAttribute('data-feature')
         ? renderTrendsGallery().catch(console.log).finally(hideSpinner)
         : renderFilmsByKeywordGallery().catch(console.log).finally(hideSpinner);
@@ -120,8 +113,7 @@ function handleOnPaginationContainerClick(event) {
 
     case 'tui-page-btn tui-last':
       apiServise.setPage(apiServise.filmsAmount / 20);
-      console.log('page: ', apiServise.page);
-
+      // console.log('page: ', apiServise.page);
       refs.filmsGallery.hasAttribute('data-feature')
         ? renderTrendsGallery().catch(console.log).finally(hideSpinner)
         : renderFilmsByKeywordGallery().catch(console.log).finally(hideSpinner);
@@ -129,8 +121,7 @@ function handleOnPaginationContainerClick(event) {
 
     case 'tui-page-btn tui-first-child':
       apiServise.resetPage();
-      console.log('page: ', apiServise.page);
-
+      // console.log('page: ', apiServise.page);
       refs.filmsGallery.hasAttribute('data-feature')
         ? renderTrendsGallery().catch(console.log).finally(hideSpinner)
         : renderFilmsByKeywordGallery().catch(console.log).finally(hideSpinner);
@@ -138,9 +129,9 @@ function handleOnPaginationContainerClick(event) {
 
     case 'tui-page-btn tui-prev-is-ellip tui-first-child':
       const activeBtnRef1 = document.querySelector('.tui-is-selected');
+      console.log('activeBtnRef1.textContent: ', activeBtnRef1.textContent);
       apiServise.setPage(Number(activeBtnRef1.textContent));
       console.log('page: ', apiServise.page);
-
       refs.filmsGallery.hasAttribute('data-feature')
         ? renderTrendsGallery().catch(console.log).finally(hideSpinner)
         : renderFilmsByKeywordGallery().catch(console.log).finally(hideSpinner);
@@ -148,9 +139,9 @@ function handleOnPaginationContainerClick(event) {
 
     case 'tui-page-btn tui-next-is-ellip tui-last-child':
       const activeBtnRef2 = document.querySelector('.tui-is-selected');
+      console.log('activeBtnRef2.textContent: ', activeBtnRef2.textContent);
       apiServise.setPage(Number(activeBtnRef2.textContent));
       console.log('page: ', apiServise.page);
-
       refs.filmsGallery.hasAttribute('data-feature')
         ? renderTrendsGallery().catch(console.log).finally(hideSpinner)
         : renderFilmsByKeywordGallery().catch(console.log).finally(hideSpinner);

@@ -1,5 +1,4 @@
 import headerTemplates from './components/headers-tpl';
-import genres from './decodingJenres';
 import {
   paginateFilms,
   startListeningOnPaginationContainerClick,
@@ -12,7 +11,7 @@ import {
   getUserQueueFromDatabase,
 } from './userLibrary';
 import { currentUserId } from './login-form';
-import { handleSearchFormSubmit } from './movieSearch';
+import updateFilmsGalleryMarkup from './films-gallery';
 
 const refs = {
   header: document.querySelector('.header-container-js'),
@@ -20,8 +19,6 @@ const refs = {
   libraryBtn: document.querySelector('.navigation-list-item-link-my-library'),
   paginationContainer: document.querySelector('#pagination'),
   homeLink: document.querySelector('.navigation-list-item-link-home'),
-  searchForm: document.querySelector('#search-form'),
-  notice: document.querySelector('.header-search-warning-show'),
 };
 
 function renderHomePage(headerTpl) {
@@ -32,7 +29,7 @@ function renderHomePage(headerTpl) {
   apiServise.resetPage();
   showSpinner();
   updateHeaderMarkup(headerTpl);
-  renderPagination().catch(console.log).finally(hideSpinner);
+  renderTrendsPagination().catch(console.log).finally(hideSpinner);
   startListeningOnPaginationContainerClick();
 }
 
@@ -42,14 +39,14 @@ function updateHeaderMarkup(headerTpl) {
   refs.libraryBtn.addEventListener('click', libraryHandleClick);
 }
 
-function renderPagination() {
+function renderTrendsPagination() {
   return renderTrendsGallery().then(() => {
     paginateFilms();
   });
 }
 
 function renderTrendsGallery() {
-  return fetchTrends().then(({ results, total_results }) => {
+  return apiServise.fetchTrends().then(({ results, total_results }) => {
     // console.log('results: ', results);
     // console.log('total_results: ', total_results);
 
@@ -61,50 +58,6 @@ function renderTrendsGallery() {
     console.log('apiServise.filmsAmount: ', apiServise.filmsAmount);
 
     return;
-  });
-}
-
-function fetchTrends() {
-  return fetch(
-    `${apiServise.path}/trending/movie/day?api_key=${apiServise.key}&page=${apiServise.page}`,
-  ).then(response => response.json());
-}
-
-function updateFilmsGalleryMarkup(films) {
-  // console.log('genres: ', genres);
-
-  films.map(({ id, poster_path, title, release_date, genre_ids }) => {
-    const filteredGenres = genres.filter(genre => genre_ids.includes(genre.id));
-    // console.log('filteredGenres: ', filteredGenres);
-
-    const mapedGenres = filteredGenres.map(({ name }) => name);
-    // console.log('mapedGenres: ', mapedGenres);
-
-    let slicedMapedGenres = [];
-
-    if (mapedGenres.length < 3) {
-      slicedMapedGenres = mapedGenres;
-    } else {
-      slicedMapedGenres = mapedGenres.slice(0, 2);
-      slicedMapedGenres.push('Other');
-    }
-    // console.log('slicedMapedGenres: ', slicedMapedGenres);
-
-    const markup = `
-<li class="films-gallery-item" data-id="${id}">
-  <img
-    class="films-gallery-item-image"
-    src="https://image.tmdb.org/t/p/w342${poster_path}"
-    alt="«${title}» film poster"
-  >
-  <p class="films-gallery-item-title">${title.toUpperCase()}</p>
-  <p class="films-gallery-item-info">${slicedMapedGenres.join(', ')} | ${
-      release_date.split('-')[0]
-    }</p>
-</li>
-`;
-
-    refs.filmsGallery.insertAdjacentHTML('beforeend', markup);
   });
 }
 

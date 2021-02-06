@@ -15,6 +15,4 @@ import './js/api-servise';
 
 renderHomePage(headerTemplates.homeHeader);
 
-const searchFormRef = document.querySelector('#search-form');
-
 listenSearchFormSubmit();
