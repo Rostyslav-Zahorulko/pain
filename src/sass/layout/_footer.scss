@@ -1,0 +1,50 @@
+.footer {
+  padding-top: 30px;
+  padding-bottom: 28px;
+
+  background-color: #f7f7f7;
+}
+
+.block {
+  display: block;
+
+  font-family: Roboto;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.1721;
+  text-align: center;
+
+  @media screen and (min-width: 768px) {
+    display: flex;
+    justify-content: center;
+
+    font-size: 16px;
+    line-height: 1.1718;
+  }
+}
+
+.text {
+  margin-top: 0px;
+  margin-bottom: 9.9px;
+
+  @media screen and (min-width: 768px) {
+    margin-bottom: 0px;
+    margin-right: 4px;
+  }
+}
+
+.mob-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.develop-text {
+  margin-top: 0px;
+  margin-bottom: 0px;
+  margin-right: 10px;
+}
+
+.heart-svg {
+  margin-right: 10px;
+}
