@@ -172,8 +172,4 @@ function libraryHandleClick(event) {
 
 //-------------------------------------------------------------
 
-// renderHomePage(headerTemplates.homeHeader);
-
-// refs.searchForm.addEventListener('submit', handleSearchFormSubmit);
-
 export { renderHomePage, renderTrendsGallery };

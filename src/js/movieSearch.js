@@ -20,6 +20,13 @@ const refs = {
 const path = 'https://api.themoviedb.org/3';
 const key = 'ffddee44025dd24685ea61d637d56d24';
 
+function listenSearchFormSubmit() {
+  const searchFormRef = document.querySelector('#search-form');
+  console.log('searchFormRef: ', searchFormRef);
+
+  searchFormRef.addEventListener('submit', handleSearchFormSubmit);
+}
+
 function handleSearchFormSubmit(event) {
   event.preventDefault();
 
@@ -31,14 +38,17 @@ function handleSearchFormSubmit(event) {
   apiServise.resetPage();
   // console.log('apiServise.page: ', apiServise.page);
 
-  // refs.notice.classList.add('is-hidden');
+  const noticeRef = document.querySelector('.header-search-warning-show');
+  console.log('noticeRef: ', noticeRef);
+
+  noticeRef.classList.add('is-hidden');
 
   const form = event.currentTarget;
   const input = form.elements.query;
 
   if (input.value === '') {
-    refs.notice.classList.remove('is-hidden');
-    refs.notice.textContent =
+    noticeRef.classList.remove('is-hidden');
+    noticeRef.textContent =
       'Unable to make a search query. Please enter any text!';
 
     return;
@@ -67,9 +77,12 @@ function renderFilmsByKeywordGallery() {
     // console.log(results);
     // console.log(total_results);
 
+    const noticeRef = document.querySelector('.header-search-warning-show');
+    console.log('noticeRef: ', noticeRef);
+
     if (results.length === 0) {
-      refs.notice.classList.remove('is-hidden');
-      refs.notice.textContent =
+      noticeRef.classList.remove('is-hidden');
+      noticeRef.textContent =
         'Your search did not match any films. Please clarify the request!';
 
       return;
@@ -131,4 +144,4 @@ function updateFilmsGalleryMarkup(films) {
   });
 }
 
-export { handleSearchFormSubmit, renderFilmsByKeywordGallery };
+export { listenSearchFormSubmit, renderFilmsByKeywordGallery };
